@@ -1,3 +1,9 @@
+namespace SpriteKind {
+    export const Ammo = SpriteKind.create()
+}
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
+    Player_1.destroy()
+})
 function Player1 () {
     scene.setBackgroundColor(10)
     Player_1 = sprites.create(img`
@@ -21,11 +27,11 @@ b b b b b b b b b e e b b e e .
     Player_1.setPosition(75, 110)
     controller.moveSprite(Player_1, 100, 100)
 }
-sprites.onOverlap(SpriteKind.Player, SpriteKind.Player, function (sprite, otherSprite) {
-	
+sprites.onOverlap(SpriteKind.Ammo, SpriteKind.Enemy, function (sprite, otherSprite) {
+    projectile2.destroy(effects.fire, 500)
 })
-let projectile2: Sprite = null
 let projectile: Sprite = null
+let projectile2: Sprite = null
 let Player_1: Sprite = null
 Player1()
 forever(function () {
@@ -66,5 +72,8 @@ f 1 . . . . . . . . . . . . . .
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
 `, 50, 0)
+    pause(200)
     projectile2.setPosition(0, Math.randomRange(0, 150))
+    projectile.setKind(SpriteKind.Ammo)
+    projectile2.setKind(SpriteKind.Enemy)
 })
